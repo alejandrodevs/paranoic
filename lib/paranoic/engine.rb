@@ -4,8 +4,6 @@ module Paranoic
   class Engine < ::Rails::Engine
     isolate_namespace Paranoic
 
-    config.assets.precompile += %w(*.png *.jpg *.jpeg *.gif)
-
     config.generators do |g|
       g.template_engine :haml
       g.test_framework :rspec, :fixture => false
