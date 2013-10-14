@@ -1,0 +1,22 @@
+= form_for @attribute_permission do |f|
+  - if @attribute_permission.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@attribute_permission.errors.count, "error")} prohibited this attribute_permission from being saved:"
+      %ul
+        - @attribute_permission.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :class_name
+    = f.text_field :class_name
+  .field
+    = f.label :attribute_name
+    = f.text_field :attribute_name
+  .field
+    = f.label :bin
+    = f.number_field :bin
+  .field
+    = f.label :role_id
+    = f.number_field :role_id
+  .actions
+    = f.submit 'Save'

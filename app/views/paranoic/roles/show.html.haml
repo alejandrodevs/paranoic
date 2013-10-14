@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @role.name
+%p
+  %b Owner:
+  = @role.owner_id
+%p
+  %b Owner type:
+  = @role.owner_type
+
+= link_to 'Edit', edit_role_path(@role)
+\|
+= link_to 'Back', roles_path

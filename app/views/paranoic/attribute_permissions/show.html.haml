@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Class name:
+  = @attribute_permission.class_name
+%p
+  %b Attribute name:
+  = @attribute_permission.attribute_name
+%p
+  %b Bin:
+  = @attribute_permission.bin
+%p
+  %b Role:
+  = @attribute_permission.role_id
+
+= link_to 'Edit', edit_attribute_permission_path(@attribute_permission)
+\|
+= link_to 'Back', attribute_permissions_path

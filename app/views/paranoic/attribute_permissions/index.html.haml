@@ -1,0 +1,25 @@
+%h1 Listing attribute_permissions
+
+%table
+  %tr
+    %th Class name
+    %th Attribute name
+    %th Bin
+    %th Role
+    %th
+    %th
+    %th
+
+  - @attribute_permissions.each do |attribute_permission|
+    %tr
+      %td= attribute_permission.class_name
+      %td= attribute_permission.attribute_name
+      %td= attribute_permission.bin
+      %td= attribute_permission.role_id
+      %td= link_to 'Show', attribute_permission
+      %td= link_to 'Edit', edit_attribute_permission_path(attribute_permission)
+      %td= link_to 'Destroy', attribute_permission, :method => :delete, :data => { :confirm => 'Are you sure?' }
+
+%br
+
+= link_to 'New Attribute permission', new_attribute_permission_path
