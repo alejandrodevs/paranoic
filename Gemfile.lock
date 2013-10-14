@@ -2,7 +2,8 @@ PATH
   remote: .
   specs:
     paranoic (0.0.1)
-      rails (~> 3.2.14)
+      haml-rails (~> 0.4)
+      rails (~> 3.2.13)
 
 GEM
   remote: https://rubygems.org/
