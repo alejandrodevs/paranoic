@@ -55,7 +55,8 @@ module Paranoic
       def attributes_allowed_for user, resource
         user.roles.includes(:attribute_permissions).
           map(&:attribute_permissions).flatten.
-          select{|e| e.class_name == resource}.map(&:attribute_name)
+          select{ |e| e.class_name == resource && e.bin == 2 }.
+          map{ |e| e.attribute_name.to_sym }
       end
 
     end

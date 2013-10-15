@@ -1,0 +1,15 @@
+%p#notice= notice
+
+%p
+  %b Class name:
+  = @action_permission.class_name
+%p
+  %b Action:
+  = @action_permission.action
+%p
+  %b Role:
+  = @action_permission.role_id
+
+= link_to 'Edit', edit_action_permission_path(@action_permission)
+\|
+= link_to 'Back', action_permissions_path

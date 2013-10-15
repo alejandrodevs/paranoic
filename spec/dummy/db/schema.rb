@@ -11,7 +11,15 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131014183205) do
+ActiveRecord::Schema.define(:version => 20131015210614) do
+
+  create_table "paranoic_action_permissions", :force => true do |t|
+    t.string   "class_name"
+    t.string   "action"
+    t.integer  "role_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "paranoic_attribute_permissions", :force => true do |t|
     t.string   "class_name"
