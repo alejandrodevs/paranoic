@@ -19,7 +19,9 @@ module Paranoic
 
         if params.is_a?(Array)
           params.each do |params_item|
-            sanitize_params_for(user, params_item, params_allowed)
+            if params_item.is_a?(Hash)
+              sanitize_params_for(user, params_item, params_allowed)
+            end
           end
         end
       end
@@ -31,9 +33,7 @@ module Paranoic
       def sanitize_params_for user, params, params_allowed
         params.each do |key, val|
           if params_allowed.include?(key)
-            if [:ids, :attributes].include?(key.to_s.split("_").last.to_sym)
-              sanitize!(user, params, key)
-            end
+            sanitize!(user, params, key) if key =~ /_attributes|_ids$/
           else
             params.delete(key)
           end
@@ -42,12 +42,18 @@ module Paranoic
 
       # Gets the class name to this resource. Removes 'attributes' and 'ids'.
       def get_resource_class resource
+        resource.to_s.gsub!(/_attributes|_ids$/, "")
+        resource.singularize.camelcase
       end
 
       # Gets the attributes allowed for the user and resource passed by param.
       # The attributes allowed should be in the attribute_permissions table in
       # the database.
       def attributes_allowed_for user, resource
+        user.roles.select("attribute_permissions.attribute_name").
+          joins("attribute_permissions").
+          where("attribute_permissions.class_name = ?", resource).
+          map{ |permission| permission.to_sym }
       end
 
     end
