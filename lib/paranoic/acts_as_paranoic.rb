@@ -14,8 +14,9 @@ module Paranoic
     end
 
     def sanitize_params_paranoically
+      raise "You must implement the current_user method" unless self.respond_to?(:current_user)
       sanitizer = Sanitizer.new
-      sanitizer.sanitize!(params, @acts_as_paranoic_resource)
+      sanitizer.sanitize!(current_user, params, @acts_as_paranoic_resource)
     end
 
   end

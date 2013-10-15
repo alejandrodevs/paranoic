@@ -33,18 +33,34 @@ module Paranoic
     end
 
     describe "#sanitize_params_paranoically" do
-      let!(:sanitizer){ ActsAsParanoic::Sanitizer.new }
-      let!(:params){ {user: {name: "name", age: 10} }}
-
-      before :each do
-        subject.acts_as_paranoic :user
-        subject.stub(:params).and_return(params)
+      context "when doesn't respond to current_user method" do
+        it "raise an error" do
+          expect{ subject.sanitize_params_paranoically }.to raise_error
+        end
       end
 
-      it "instances ActsAsParanoic::Sanitizer class and calls sanitize! method" do
-        ActsAsParanoic::Sanitizer.should_receive(:new).exactly(1).times.and_return(sanitizer)
-        sanitizer.should_receive(:sanitize!).with(params, :user).exactly(1).times
-        subject.sanitize_params_paranoically
+      context "when responds to current_user method" do
+        let!(:sanitizer){ ActsAsParanoic::Sanitizer.new }
+        let!(:params){ {user: {name: "name", age: 10} }}
+        let!(:current_user){ "CurrentUser" }
+
+        before :each do
+          subject.acts_as_paranoic :user
+          subject.stub(:current_user).and_return(current_user)
+          subject.stub(:params).and_return(params)
+        end
+
+        it "instances ActsAsParanoic::Sanitizer class and calls sanitize! method" do
+          ActsAsParanoic::Sanitizer.should_receive(:new).
+            exactly(1).times.
+            and_return(sanitizer)
+
+          sanitizer.should_receive(:sanitize!).
+            with(current_user, params, :user).
+            exactly(1).times
+
+          subject.sanitize_params_paranoically
+        end
       end
     end
   end
