@@ -3,6 +3,7 @@ module Paranoic
     class Sanitizer
 
       def sanitize! user, params, resource
+        puts resource
         # Gets params that will be sanitized.
         params = params[resource]
 
@@ -42,18 +43,19 @@ module Paranoic
 
       # Gets the class name to this resource. Removes 'attributes' and 'ids'.
       def get_resource_class resource
-        resource.to_s.gsub!(/_attributes|_ids$/, "")
-        resource.singularize.camelcase
+        resource_class = resource.to_s.gsub(/_attributes|_ids$/, "")
+        resource_class.singularize.camelcase
       end
 
       # Gets the attributes allowed for the user and resource passed by param.
       # The attributes allowed should be in the attribute_permissions table in
       # the database.
+      #
+      # THIS METHOD NEEDS A REFACTOR.
       def attributes_allowed_for user, resource
-        user.roles.select("attribute_permissions.attribute_name").
-          joins("attribute_permissions").
-          where("attribute_permissions.class_name = ?", resource).
-          map{ |permission| permission.to_sym }
+        user.roles.includes(:attribute_permissions).
+          map(&:attribute_permissions).flatten.
+          select{|e| e.class_name == resource}.map(&:attribute_name)
       end
 
     end
