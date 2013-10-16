@@ -3,6 +3,7 @@ module Paranoic
 
     def setup
       yield if block_given?
+      require 'paranoic/integration'
     end
 
   end
