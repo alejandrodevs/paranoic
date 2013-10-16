@@ -1,6 +1,9 @@
 require "haml-rails"
+require "paranoic/setup"
 
 module Paranoic
+  extend Setup
+
   class Engine < ::Rails::Engine
     isolate_namespace Paranoic
 
@@ -10,7 +13,6 @@ module Paranoic
       g.javascript_engine :coffee
       g.stylesheet_engine :scss
       g.integration_tool :rspec
-      g.fixture_replacement :factory_girl, :dir => 'spec/factories'
       g.helper false
     end
   end

@@ -1,7 +1,7 @@
 require "paranoic/engine"
-require "paranoic/acts_as_paranoic"
-require "paranoic/active_model"
-require "paranoic/methods"
 
 module Paranoic
+  autoload :ActsAsParanoic, 'paranoic/acts_as_paranoic'
+  autoload :ActiveModel,    'paranoic/active_model'
+  autoload :Methods,        'paranoic/methods'
 end
