@@ -1,15 +1,18 @@
 module Paranoic
   module ActiveModel
-    autoload :ClassMethods, 'paranoic/active_model/class_methods'
-    autoload :InstanceMethods, 'paranoic/active_model/instance_methods'
 
-    def self.included(base)
-      base.send :extend, ClassMethods
-      base.send :include, InstanceMethods
+    def include?(name)
+      return false if @options.key?(:only) && !Array(@options[:only]).include?(name)
+      return false if @options.key?(:except) && Array(@options[:except]).include?(name)
+      return false if !paranoic_attribute_permissions.include?(name.to_sym)
+      send INCLUDE_METHODS[name]
     end
-  end
-end
 
-if defined?(ActiveModel::Serializer)
-  ActiveModel::Serializer.send :include, Paranoic::ActiveModel
+    def paranoic_attribute_permissions
+      @paranoic_attribute_permissions ||= begin
+        current_user.readable_attribute_permissions_for(object.class.model_name)
+      end
+    end
+
+  end
 end

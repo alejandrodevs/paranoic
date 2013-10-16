@@ -17,7 +17,6 @@ module Paranoic
       writable_attribute_permissions_for(class_name).include?(attr)
     end
 
-    # THIS METHOD HAVE TO BE REFACTORIZED :(
     def attribute_permissions_for class_name, bin
       self.roles.includes(:attribute_permissions).
         map(&:attribute_permissions).flatten.
@@ -26,8 +25,4 @@ module Paranoic
     end
 
   end
-end
-
-if defined?(User)
-  User.send(:include, Paranoic::Methods)
 end
