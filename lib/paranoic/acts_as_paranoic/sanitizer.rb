@@ -3,7 +3,6 @@ module Paranoic
     class Sanitizer
 
       def sanitize! user, params, resource
-        puts resource
         # Gets params that will be sanitized.
         params = params[resource]
 
