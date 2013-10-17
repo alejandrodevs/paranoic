@@ -4,7 +4,6 @@ class CreateParanoicAttributePermissions < ActiveRecord::Migration
       t.string :class_name
       t.string :attribute_name
       t.integer :bin
-      t.integer :role_id
 
       t.timestamps
     end

@@ -1,7 +1,7 @@
 module Paranoic
   class AttributePermission < ActiveRecord::Base
-    attr_accessible :attribute_name, :bin, :class_name, :role_id
+    attr_accessible :attribute_name, :bin, :class_name
 
-    belongs_to :role
+    has_and_belongs_to_many :roles
   end
 end

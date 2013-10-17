@@ -11,7 +11,12 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131015210614) do
+ActiveRecord::Schema.define(:version => 20131017145008) do
+
+  create_table "attribute_permissions_roles", :id => false, :force => true do |t|
+    t.integer "attribute_permission_id"
+    t.integer "role_id"
+  end
 
   create_table "paranoic_action_permissions", :force => true do |t|
     t.string   "class_name"
@@ -36,6 +41,11 @@ ActiveRecord::Schema.define(:version => 20131015210614) do
     t.string   "owner_type"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
+  end
+
+  create_table "roles_users", :id => false, :force => true do |t|
+    t.integer "paranoic_role_id"
+    t.integer "user_id"
   end
 
 end
