@@ -57,9 +57,9 @@ def serializable_attributes_for serializer
 end
 
 def create_action_permission controller, action
-  Paranoic::ActionPermission.create(class_name: controller.to_s, action: action)
+  Paranoic::ActionPermission.find_or_create_by_class_name_and_action(controller.to_s, action)
 end
 
 def create_attribute_permission class_name, attr, bin
-  Paranoic::AttributePermission.create(class_name: class_name.to_s, attribute_name: attr.to_s, bin: bin.to_i)
+  Paranoic::AttributePermission.find_or_create_by_class_name_and_attribute_name(class_name.to_s, attr.to_s, bin: bin.to_i)
 end

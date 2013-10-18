@@ -11,7 +11,7 @@ module Paranoic
 
         # Returns an array with the allowed attributes for user and resource
         # that were passed by param.
-        allowed_params = user.writable_attribute_permissions_for(class_name.to_s)
+        allowed_params = user.writable_attribute_permissions_for(class_name.to_s) rescue []
 
         if params.is_a?(Hash)
           sanitize_params_for(user, params, allowed_params)
@@ -37,7 +37,7 @@ module Paranoic
           #else
             #params.delete(key)
           #end
-          params.delete(key) unless allowed_params.include?(key)
+          params.delete(key) unless allowed_params.include?(key.to_sym)
         end
       end
 
