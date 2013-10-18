@@ -10,7 +10,7 @@ if defined?(ActiveModel::Serializer)
 
     def paranoic_attribute_permissions
       @paranoic_attribute_permissions ||= begin
-        current_user.readable_attribute_permissions_for(object.class.model_name)
+        current_user.readable_attribute_permissions_for(self.class)
       end
     end
 

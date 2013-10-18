@@ -8,8 +8,7 @@ namespace :paranoic do
       controllers.each do |controller|
         model = controller.controller_name.classify.constantize rescue nil
         accessible_attributes_for(model).each do |attr|
-          class_name = controller.name.sub(/Controller$/, '').singularize
-          create_attribute_permission(class_name, attr, 2)
+          create_attribute_permission(controller, attr, 2)
         end
       end
     end
