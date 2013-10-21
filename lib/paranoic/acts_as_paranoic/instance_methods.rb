@@ -10,7 +10,7 @@ module Paranoic
 
       def paranoid_access
         accessor = ActsAsParanoic::ParanoidAccess.new
-        if current_user && !accessor.valid?(current_user, params[:controller], params[:action])
+        if current_user && !accessor.valid?(current_user, self.class, params[:action])
           respond_to do |format|
             format.html{ render :json => 'Method not allowed', :status => 405 }
             format.json{ render :json => 'Method not allowed', :status => 405 }
