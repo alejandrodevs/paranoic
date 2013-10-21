@@ -24,5 +24,12 @@ module Paranoic
         map{ |e| e.attribute_name.to_sym }
     end
 
+    def action_permissions_for class_name
+      self.roles.includes(:action_permissions).
+        map(&:action_permissions).flatten.
+        select{ |e| class_name.to_s == e.class_name }.
+        map{ |e| e.action.to_sym }
+    end
+
   end
 end

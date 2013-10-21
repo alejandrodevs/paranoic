@@ -1,4 +1,4 @@
-class JoinTableAttributePermissionsRoles < ActiveRecord::Migration
+class JoinTableForAttributePermissionsRoles < ActiveRecord::Migration
   def up
     create_table :attribute_permissions_roles, :id => false do |t|
       t.references :attribute_permission, :role

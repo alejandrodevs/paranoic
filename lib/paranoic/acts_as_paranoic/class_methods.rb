@@ -6,6 +6,7 @@ module Paranoic
         @acts_as_paranoic_options  = args.extract_options!
         @acts_as_paranoic_resource = args.last
         @acts_as_paranoic = true
+        before_filter :paranoid_access
         before_filter :sanitize_params_paranoically
       end
 
